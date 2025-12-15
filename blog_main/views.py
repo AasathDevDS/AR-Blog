@@ -16,14 +16,14 @@ def home(request):
     'featured_posts':featured_posts,
     'posts':posts,
   }
-  return render(request, 'home.html',context)
+  return render(request,'home.html',context)
 
 def register(request):
   if request.method == 'POST':
     form = Registrationform(request.POST)
     if form.is_valid():
       form.save()
-      return redirect('register')
+      return redirect('home')
     else:
       print(form.errors)   
   else:
@@ -39,11 +39,10 @@ def login(request):
     if form.is_valid():
       username = form.cleaned_data['username']
       password = form.cleaned_data['password']
-
       user = auth.authenticate(username=username,password=password)
       if user is not None:
         auth.login(request, user)
-        return redirect('home')
+        return redirect('dashboard')
   form = AuthenticationForm()
   context = {
     'form':form

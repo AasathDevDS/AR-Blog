@@ -1,5 +1,9 @@
-from .models import Category
+from .models import Category,Blog
 
 def get_category(request):
   categories = Category.objects.all()
   return dict(categories=categories)
+
+def get_posts(request):
+  posts = Blog.objects.all()
+  return dict(posts = posts)
